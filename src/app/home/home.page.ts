@@ -1,6 +1,7 @@
 import { Component, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 import { IntuneMAM, IntuneMAMAppConfig, IntuneMAMGroupName, IntuneMAMPolicy, IntuneMAMUser, IntuneMAMVersionInfo } from '@ionic-enterprise/intune';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,7 @@ import { IntuneMAM, IntuneMAMAppConfig, IntuneMAMGroupName, IntuneMAMPolicy, Int
 })
 export class HomePage {
   tokenInfo: any = null;
-  user: IntuneMAMUser | null = null;
+  user$: BehaviorSubject<IntuneMAMUser | null> = new BehaviorSubject(null);
   version: IntuneMAMVersionInfo | null = null;
   groupName: IntuneMAMGroupName | null = null;
   appConfig: IntuneMAMAppConfig | null = null;
@@ -17,10 +18,23 @@ export class HomePage {
 
   constructor(private router: Router) { }
 
+  ngOnInit() {
+    this.user$.subscribe(async user => {
+      console.log('User changed', user);
+      if (user?.upn) {
+        this.appConfig = await IntuneMAM.appConfig(user);
+        this.groupName = await IntuneMAM.groupName(user);
+        this.policy = await IntuneMAM.getPolicy(user);
+
+        await this.getToken();
+      }
+    });
+  }
+
   async ionViewDidEnter() {
     this.version = await IntuneMAM.sdkVersion();
 
-    this.user = await IntuneMAM.enrolledAccount();
+    this.user$.next(await IntuneMAM.enrolledAccount());
 
     IntuneMAM.addListener('appConfigChange', () => {
       console.log('Policy change here');
@@ -31,33 +45,16 @@ export class HomePage {
     });
   }
 
-  async ngOnChanges(changes: SimpleChanges) {
-    for (const propName in changes) {
-      const c = changes[propName];
-
-      if (propName === "user") {
-        const u = c.currentValue;
-        if (u?.upn) {
-          this.appConfig = await IntuneMAM.appConfig(u);
-          this.groupName = await IntuneMAM.groupName(u);
-          this.policy = await IntuneMAM.getPolicy(u);
-
-          await this.getToken();
-        }
-      }
-    }
-  }
-
   async showConsole() {
     await IntuneMAM.displayDiagnosticConsole();
   }
 
   async getToken() {
-    if (this.user?.upn) {
+    if (this.user$.value?.upn) {
       try {
         const tokenInfo = await IntuneMAM.acquireTokenSilent({
           scopes: ["https://graph.microsoft.com/.default"],
-          ...this.user,
+          ...this.user$.value,
         });
         this.tokenInfo = tokenInfo;
         console.log("Got token info", tokenInfo);
@@ -74,8 +71,8 @@ export class HomePage {
   }
 
   async logout() {
-    if (this.user) {
-      await IntuneMAM.deRegisterAndUnenrollAccount(this.user);
+    if (this.user$.value) {
+      await IntuneMAM.deRegisterAndUnenrollAccount(this.user$.value);
     }
     this.router.navigate(['/']);
   }
