@@ -7,7 +7,7 @@ import { IntuneMAM } from '@ionic-enterprise/intune';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
   version = null;
 
   constructor(private router: Router) { }
