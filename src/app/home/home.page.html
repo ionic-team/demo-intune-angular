@@ -1,20 +1,37 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title> Home </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <h2>{{user.?upn ?? "No user"}}</h2>
+    <h5>Token info:</h5>
+    <textarea
+      style="height: 200px; width: 100%; display: block"
+      [value]="getTokenInfoJson()"
+      readonly
+    ></textarea>
+    <h5>Intune MAM Version: {{version?.version || "No version"}}</h5>
+    <h5>Group name: {{groupName?.value || "No group name"}}</h5>
+    <h5>Policy:</h5>
+    <textarea
+      style="height: 200px; width: 100%; display: block"
+      [value]="getPolicyJson()"
+      readonly
+    ></textarea>
+    <h5>App Config:</h5>
+    <textarea
+      style="height: 200px; width: 100%; display: block"
+      [value]="getAppConfig()"
+      readonly
+    ></textarea>
   </div>
 </ion-content>

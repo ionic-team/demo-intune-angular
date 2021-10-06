@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Login</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-button (click)="login()">Log in</ion-button>
+  <ion-button (click)="showConsole()">Show Console</ion-button>
+  <p *ngIf="version">SDK Version: {{version}}</p>
+</ion-content>
