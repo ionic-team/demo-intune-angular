@@ -1,0 +1,7 @@
+{
+  "name": "demo-intune-angular",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
