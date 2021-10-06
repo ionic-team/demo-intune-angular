@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-        <string>demo-intune-angular</string>
+	<string>ionic-intune-demo</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -18,8 +18,40 @@
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>msauth.$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+				<string>msauth.$(PRODUCT_BUNDLE_IDENTIFIER)-intunemam</string>
+				<string>msauth.com.microsoft.intunemam</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>mvisionmobile</string>
+		<string>msauthv2</string>
+		<string>scmx</string>
+		<string>lookoutwork-ase</string>
+		<string>msauthv3</string>
+		<string>lacoonsecurity</string>
+		<string>zips</string>
+		<string>skycure</string>
+		<string>smart-ns</string>
+		<string>smsec</string>
+		<string>betteractiveshield</string>
+		<string>companyportal</string>
+		<string>wandera</string>
+		<string>https-intunemam</string>
+		<string>http-intunemam</string>
+		<string>microsoft-edge-https-intunemam</string>
+		<string>microsoft-edge-http-intunemam</string>
+		<string>ms-outlook-intunemam</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -50,5 +82,16 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+    <key>IntuneMAMSettings</key>
+    <dict>
+        <key>AutoEnrollOnLaunch</key>
+        <true />
+        <key>ADALClientId</key>
+        <string>f80e2e59-01b2-4f88-be80-4895a63eae7e</string>
+        <key>ADALAuthority</key>
+        <string>https://login.microsoftonline.com/453daf0a-cd18-4085-bfd7-fb9431630f11</string>
+        <key>ADALRedirectUri</key>
+        <string>msauth.io.ionic.intuneDemo2://auth</string>
+    </dict>
 </dict>
 </plist>

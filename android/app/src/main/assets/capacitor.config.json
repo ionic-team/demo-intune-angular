@@ -1,6 +1,6 @@
 {
 	"appId": "io.ionic.starter",
-	"appName": "demo-intune-angular",
-	"webDir": "www",
+	"appName": "ionic-intune-demo",
+	"webDir": "build",
 	"bundledWebRuntime": false
 }
