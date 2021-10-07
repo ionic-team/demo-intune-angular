@@ -19,13 +19,6 @@
     "@angular/platform-browser": "~12.1.1",
     "@angular/platform-browser-dynamic": "~12.1.1",
     "@angular/router": "~12.1.1",
-    "@capacitor/android": "^3.2.4",
-    "@capacitor/app": "1.0.3",
-    "@capacitor/core": "3.2.4",
-    "@capacitor/haptics": "1.1.0",
-    "@capacitor/ios": "^3.2.4",
-    "@capacitor/keyboard": "1.1.0",
-    "@ionic-enterprise/intune": "^2.1.2",
     "@ionic/angular": "^5.5.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
@@ -42,12 +35,20 @@
     "@angular/compiler-cli": "~12.1.1",
     "@angular/language-service": "~12.0.1",
     "@capacitor/cli": "3.2.4",
+    "@ionic-enterprise/intune": "file:../enterprise-intune/packages/intune",
     "@ionic/angular-toolkit": "^4.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "4.16.1",
     "@typescript-eslint/parser": "4.16.1",
+    "cordova-android": "^10.1.1",
+    "cordova-ios": "^6.2.0",
+    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-plugin-ionic-webview": "^5.0.0",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-statusbar": "^2.4.2",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
@@ -64,5 +65,24 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.2.4"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-ionic-webview": {},
+      "@ionic-enterprise/intune": {
+        "INTUNE_CLIENT_ID": "f80e2e59-01b2-4f88-be80-4895a63eae7e",
+        "INTUNE_ADAL_AUTHORITY": "https://login.microsoftonline.com/453daf0a-cd18-4085-bfd7-fb9431630f11",
+        "INTUNE_REDIRECT_URI_IOS": "msauth.io.ionic.intuneDemo2://auth",
+        "INTUNE_SIGNATURE_HASH": "5Lmt5lmx4ECI4NqjLePe1rm/ji0="
+      }
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  }
 }

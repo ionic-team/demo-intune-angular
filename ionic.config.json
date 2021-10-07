@@ -1,7 +1,7 @@
 {
   "name": "demo-intune-angular",
   "integrations": {
-    "capacitor": {}
+    "cordova": {}
   },
   "type": "angular"
 }
