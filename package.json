@@ -76,7 +76,7 @@
       "@ionic-enterprise/intune": {
         "INTUNE_CLIENT_ID": "f80e2e59-01b2-4f88-be80-4895a63eae7e",
         "INTUNE_ADAL_AUTHORITY": "https://login.microsoftonline.com/453daf0a-cd18-4085-bfd7-fb9431630f11",
-        "INTUNE_REDIRECT_URI_IOS": "msauth.io.ionic.intuneDemo2://auth",
+        "INTUNE_REDIRECT_URI_IOS": "msauth.io.ionic.starter://auth",
         "INTUNE_SIGNATURE_HASH": "5Lmt5lmx4ECI4NqjLePe1rm/ji0="
       }
     },
