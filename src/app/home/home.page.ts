@@ -1,6 +1,10 @@
-import { Component, SimpleChanges } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
-import { IntuneMAM, IntuneMAMAppConfig, IntuneMAMGroupName, IntuneMAMPolicy, IntuneMAMUser, IntuneMAMVersionInfo } from '@ionic-enterprise/intune';
+
+import {
+  IntuneMAM, IntuneMAMAppConfig, IntuneMAMGroupName,
+  IntuneMAMPolicy, IntuneMAMUser, IntuneMAMVersionInfo
+} from '@ionic-enterprise/intune';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -53,17 +57,17 @@ export class HomePage {
     if (this.user$.value?.upn) {
       try {
         const tokenInfo = await IntuneMAM.acquireTokenSilent({
-          scopes: ["https://graph.microsoft.com/.default"],
+          scopes: ['https://graph.microsoft.com/.default'],
           ...this.user$.value,
         });
         this.tokenInfo = tokenInfo;
-        console.log("Got token info", tokenInfo);
+        console.log('Got token info', tokenInfo);
       } catch {
         console.error(
-          "Unable to silently acquire token, getting interactive"
+          'Unable to silently acquire token, getting interactive'
         );
         const tokenInfo = await IntuneMAM.acquireToken({
-          scopes: ["https://graph.microsoft.com/.default"],
+          scopes: ['https://graph.microsoft.com/.default'],
         });
         this.tokenInfo = tokenInfo;
       }
