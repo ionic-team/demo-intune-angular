@@ -17,20 +17,20 @@ export class LoginPage {
   }
 
   async login() {
-    var authInfo = await IntuneMAM.acquireToken({
-      scopes: ["https://graph.microsoft.com/.default"],
+    const authInfo = await IntuneMAM.acquireToken({
+      scopes: ['https://graph.microsoft.com/.default'],
     });
 
-    console.log("Got auth info", authInfo);
+    console.log('Got auth info', authInfo);
 
     await IntuneMAM.registerAndEnrollAccount({
       upn: authInfo.upn,
     });
 
     const user = await IntuneMAM.enrolledAccount();
-
+    console.log('user', user);
     if (user.upn) {
-      console.log("Got user, going home");
+      console.log('Got user, going home');
       this.router.navigate(['/home']);
     } else {
       console.log("No user, logging in");
