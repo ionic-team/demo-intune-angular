@@ -30,8 +30,7 @@
         android:name="com.ionicframework.intune.IntuneApplication"
         >
 
-        <activity
-            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
+        <activity android:exported="true"            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale|smallestScreenSize|screenLayout|uiMode"
             android:name="io.ionic.starter.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBarLaunch"
@@ -45,7 +44,7 @@
         </activity>
 
         <!-- Must be specified to allow users to login via MSAL -->
-        <activity android:name="com.microsoft.identity.client.BrowserTabActivity">
+        <activity android:exported="true" android:name="com.microsoft.identity.client.BrowserTabActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 

@@ -12,13 +12,14 @@ import { BehaviorSubject } from 'rxjs';
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
 })
-export class HomePage {
+export class HomePage implements OnInit {
   tokenInfo: any = null;
   user$: BehaviorSubject<IntuneMAMUser | null> = new BehaviorSubject(null);
   version: IntuneMAMVersionInfo | null = null;
   groupName: IntuneMAMGroupName | null = null;
   appConfig: IntuneMAMAppConfig | null = null;
   policy: IntuneMAMPolicy | null = null;
+  user: IntuneMAMUser;
 
   constructor(private router: Router) { }
 
@@ -32,6 +33,7 @@ export class HomePage {
 
         await this.getToken();
       }
+      this.user = user;
     });
   }
 
