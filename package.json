@@ -26,7 +26,7 @@
     "@capacitor/ios": "4.5.0",
     "@capacitor/keyboard": "4.1.1",
     "@ionic-enterprise/intune": "3.0.2",
-    "@ionic/angular": "6.3.9",
+    "@ionic/angular": "6.5.2",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",
     "zone.js": "~0.11.4"
@@ -42,7 +42,7 @@
     "@angular/compiler-cli": "^14.2.12",
     "@angular/language-service": "^14.2.12",
     "@capacitor/cli": "4.5.0",
-    "@ionic/angular-toolkit": "^4.0.0",
+    "@ionic/angular-toolkit": "7.0.0",
     "@ionic/cli": "6.20.4",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",

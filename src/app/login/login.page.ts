@@ -68,6 +68,19 @@ export class LoginPage {
     this.busy = false;
   }
 
+  async enrolledAccount() {
+    try {
+      this.busy = true;
+      this.message = 'Acquiring token...';
+      const authInfo = await IntuneMAM.enrolledAccount();
+      console.log('Got auth info', authInfo);
+      alert(`Success: ${JSON.stringify(authInfo)}`);
+    } catch (err) {
+      alert(err);
+    }
+    this.busy = false;
+  }
+
   async loginAndEnroll() {
     try {
       this.busy = true;
