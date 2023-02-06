@@ -76,13 +76,18 @@ export class HomePage implements OnInit {
     }
   }
 
-  async logout() {
+  async unEnroll() {
     if (this.user$.value) {
+      try
+      {
       await IntuneMAM.deRegisterAndUnenrollAccount(this.user$.value);
+      } catch (err) {
+        alert(err);
+      }
     } else {
       alert('No user to logout');
     }
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
   getTokenInfoJson() {

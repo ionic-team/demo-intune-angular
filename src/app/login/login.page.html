@@ -10,9 +10,9 @@
       <ion-title size="large">Home</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <ion-button [disabled]="busy" (click)="login()">Log in</ion-button>
-  <ion-button [disabled]="busy" (click)="loginAndEnroll()">Log in and Enroll</ion-button>
+  <ion-button [disabled]="busy" (click)="loginOnly()">Login (acquireToken))</ion-button>
+  <ion-button [disabled]="busy" (click)="login()">Enroll (acquireToken > registerAndEnroll)</ion-button>
+  <ion-button [disabled]="busy" (click)="loginAndEnroll()">Enroll (loginAndEnroll)</ion-button>
   <ion-button (click)="showConsole()">Show Console</ion-button>
   <p *ngIf="version">SDK Version: {{version}}<br/>{{message}}</p>
 </ion-content>

@@ -51,6 +51,23 @@ export class LoginPage {
     this.busy = false;
   }
 
+  async loginOnly() {
+    try {
+      this.busy = true;
+      this.message = 'Acquiring token...';
+      const authInfo = await IntuneMAM.acquireToken({
+        scopes: ['https://graph.microsoft.com/.default'],
+      });
+      console.log('Got auth info', authInfo);
+      console.log('Got user, going home');
+      this.router.navigate(['/home']);
+
+    } catch (err) {
+      alert(err);
+    }
+    this.busy = false;
+  }
+
   async loginAndEnroll() {
     try {
       this.busy = true;
