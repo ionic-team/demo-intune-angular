@@ -60,7 +60,7 @@ export class HomePage implements OnInit {
       try {
         const tokenInfo = await IntuneMAM.acquireTokenSilent({
           scopes: ['https://graph.microsoft.com/.default'],
-          ...this.user$.value,
+          upn: this.user$.value.upn,
         });
         this.tokenInfo = tokenInfo;
         console.log('Got token info', tokenInfo);
