@@ -60,18 +60,22 @@ export class HomePage implements OnInit {
       try {
         const tokenInfo = await IntuneMAM.acquireTokenSilent({
           scopes: ['https://graph.microsoft.com/.default'],
-          ...this.user$.value,
+          upn: this.user$.value.upn
         });
         this.tokenInfo = tokenInfo;
         console.log('Got token info', tokenInfo);
-      } catch {
+      } catch (error) {
         console.error(
-          'Unable to silently acquire token, getting interactive'
+          `Unable to silently acquire token: ${error}, getting interactive`
         );
-        const tokenInfo = await IntuneMAM.acquireToken({
-          scopes: ['https://graph.microsoft.com/.default'],
-        });
-        this.tokenInfo = tokenInfo;
+        try {
+          const tokenInfo = await IntuneMAM.acquireToken({
+            scopes: ['https://graph.microsoft.com/.default'],
+          });
+          this.tokenInfo = tokenInfo;
+        } catch (atError) {
+          alert(`Unable to acquire token ${atError}`);
+        }
       }
     }
   }
