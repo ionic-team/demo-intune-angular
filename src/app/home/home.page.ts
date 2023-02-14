@@ -60,7 +60,7 @@ export class HomePage implements OnInit {
       try {
         const tokenInfo = await IntuneMAM.acquireTokenSilent({
           scopes: ['https://graph.microsoft.com/.default'],
-          ...this.user$.value,
+          upn: this.user$.value.upn,
         });
         this.tokenInfo = tokenInfo;
         console.log('Got token info', tokenInfo);
@@ -76,11 +76,18 @@ export class HomePage implements OnInit {
     }
   }
 
-  async logout() {
+  async unEnroll() {
     if (this.user$.value) {
+      try
+      {
       await IntuneMAM.deRegisterAndUnenrollAccount(this.user$.value);
+      } catch (err) {
+        alert(err);
+      }
+    } else {
+      alert('No user to logout');
     }
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 
   getTokenInfoJson() {

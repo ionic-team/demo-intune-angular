@@ -1,17 +1,38 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Login</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content [fullscreen]="true">
+  <ion-list>
+    <ion-item>
+      <ion-button size="default" [disabled]="busy" (click)="loginOnly()">Login</ion-button><ion-note slot="end">Calls acquireToken</ion-note>
+    </ion-item>
+  </ion-list>
 
-  <ion-button (click)="login()">Log in</ion-button>
-  <ion-button (click)="showConsole()">Show Console</ion-button>
-  <p *ngIf="version">SDK Version: {{version}}</p>
+  <ion-list>
+    <ion-item>
+      <ion-button size="default" [disabled]="busy" (click)="login()">Enroll</ion-button><ion-note slot="end">Calls acquireToken, registerAndEnroll</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-button size="default" [disabled]="busy" (click)="loginAndEnroll()">Login & Enroll</ion-button><ion-note slot="end">Calls loginAndEnroll</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-button size="default" [disabled]="busy" (click)="enrolledAccount()">Enrolled Account</ion-button><ion-note slot="end">Calls enrolledAccount</ion-note>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-item>
+      <ion-button size="default" (click)="showConsole()">Show Console</ion-button><ion-note slot="end" *ngIf="version">SDK Version: {{version}}<br/>{{message}}</ion-note>
+    </ion-item>
+  </ion-list>
+
 </ion-content>

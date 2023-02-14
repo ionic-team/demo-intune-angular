@@ -9,6 +9,8 @@ import { IntuneMAM } from '@ionic-enterprise/intune';
 })
 export class LoginPage {
   version = null;
+  busy = false;
+  message = '';
 
   constructor(private router: Router) { }
 
@@ -17,25 +19,91 @@ export class LoginPage {
   }
 
   async login() {
-    const authInfo = await IntuneMAM.acquireToken({
-      scopes: ['https://graph.microsoft.com/.default'],
-    });
+    try {
+      this.busy = true;
+      this.message = 'Acquiring token...';
+      const authInfo = await IntuneMAM.acquireToken({
+        scopes: ['https://graph.microsoft.com/.default'],
+      });
+      console.log('Got auth info', authInfo);
+      this.message = 'Registering and Enrolling...';
+      await IntuneMAM.registerAndEnrollAccount({
+        upn: authInfo.upn,
+      });
+      console.log('Registered and enrolled');
+      this.message = 'Getting enrolled Account...';
+      const user = await IntuneMAM.enrolledAccount();
+      console.log('user', user);
 
-    console.log('Got auth info', authInfo);
+      if (user.upn) {
+        this.message = 'Finishing...';
+        console.log('Got user, going home');
+        this.router.navigate(['/home']);
+      } else {
+        console.log('No user, logging in');
+        this.message = 'No user';
+        this.router.navigate(['/login']);
+      }
 
-    await IntuneMAM.registerAndEnrollAccount({
-      upn: authInfo.upn,
-    });
+    } catch (err) {
+      alert(err);
+    }
+    this.busy = false;
+  }
 
-    const user = await IntuneMAM.enrolledAccount();
-    console.log('user', user);
-    if (user.upn) {
+  async loginOnly() {
+    try {
+      this.busy = true;
+      this.message = 'Acquiring token...';
+      const authInfo = await IntuneMAM.acquireToken({
+        scopes: ['https://graph.microsoft.com/.default'],
+      });
+      console.log('Got auth info', authInfo);
       console.log('Got user, going home');
       this.router.navigate(['/home']);
-    } else {
-      console.log("No user, logging in");
-      this.router.navigate(['/login']);
+
+    } catch (err) {
+      alert(err);
     }
+    this.busy = false;
+  }
+
+  async enrolledAccount() {
+    try {
+      this.busy = true;
+      this.message = 'Acquiring token...';
+      const authInfo = await IntuneMAM.enrolledAccount();
+      console.log('Got auth info', authInfo);
+      alert(`Success: ${JSON.stringify(authInfo)}`);
+    } catch (err) {
+      alert(err);
+    }
+    this.busy = false;
+  }
+
+  async loginAndEnroll() {
+    try {
+      this.busy = true;
+      this.message = 'Logging in and enrolling...';
+      await IntuneMAM.loginAndEnrollAccount();
+      console.log('loginAndEnrollAccounted');
+      this.message = 'Checking enrolled account...';
+      const user = await IntuneMAM.enrolledAccount();
+      console.log('user', user);
+
+      if (user.upn) {
+        console.log('Got user, going home');
+        this.router.navigate(['/home']);
+      } else {
+        console.log('No user, logging in');
+
+        this.router.navigate(['/login']);
+      }
+
+    } catch (err) {
+      alert(err);
+    }
+    this.busy = false;
   }
 
   async showConsole() {

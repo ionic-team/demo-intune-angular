@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -30,7 +30,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>IntuneMAMSettings</key>
 	<dict>
 		<key>ADALAuthority</key>
@@ -52,16 +52,16 @@
 		<string>lacoonsecurity</string>
 		<string>zips</string>
 		<string>skycure</string>
-		<string>smart-ns</string>
 		<string>smsec</string>
+		<string>smart-ns</string>
 		<string>betteractiveshield</string>
 		<string>companyportal</string>
 		<string>wandera</string>
 		<string>https-intunemam</string>
 		<string>http-intunemam</string>
-		<string>microsoft-edge-https-intunemam</string>
-		<string>microsoft-edge-http-intunemam</string>
-		<string>ms-outlook-intunemam</string>
+		<string>microsoft-edge-https</string>
+		<string>microsoft-edge-http</string>
+		<string>ms-outlook</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
