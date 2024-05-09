@@ -1,5 +1,12 @@
 {
 	"appId": "io.ionic.starter",
 	"appName": "demo-intune-angular",
-	"webDir": "www/browser"
+	"webDir": "www/browser",
+	"packageClassList": [
+		"AppPlugin",
+		"HapticsPlugin",
+		"KeyboardPlugin",
+		"IntuneMAM",
+		"IntuneMAM"
+	]
 }
