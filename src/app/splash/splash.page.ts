@@ -6,22 +6,20 @@ import { IntuneMAM } from '@ionic-enterprise/intune';
   selector: 'app-splash',
   templateUrl: './splash.page.html',
   styleUrls: ['./splash.page.scss'],
+  standalone: false,
 })
 export class SplashPage implements OnInit {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) { }
-
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   async ionViewDidEnter() {
     const user = await IntuneMAM.enrolledAccount();
 
-    if (user.upn) {
+    if (user.accountId) {
       this.router.navigate(['/home']);
     } else {
       this.router.navigate(['/login']);
     }
   }
-
 }

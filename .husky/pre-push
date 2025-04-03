@@ -1,0 +1,4 @@
+branch=`git rev-parse --abbrev-ref HEAD`
+if [ "main" = "$branch" ]; then
+  npm run build
+fi;

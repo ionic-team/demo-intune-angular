@@ -6,13 +6,14 @@ import { IntuneMAM } from '@ionic-enterprise/intune';
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
+  standalone: false,
 })
 export class LoginPage {
   version = null;
   busy = false;
   message = '';
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   async ionViewDidEnter() {
     this.version = (await IntuneMAM.sdkVersion()).version;
@@ -28,14 +29,14 @@ export class LoginPage {
       console.log('Got auth info', authInfo);
       this.message = 'Registering and Enrolling...';
       await IntuneMAM.registerAndEnrollAccount({
-        upn: authInfo.upn,
+        accountId: authInfo.accountId,
       });
       console.log('Registered and enrolled');
       this.message = 'Getting enrolled Account...';
       const user = await IntuneMAM.enrolledAccount();
       console.log('user', user);
 
-      if (user.upn) {
+      if (user.accountId) {
         this.message = 'Finishing...';
         console.log('Got user, going home');
         this.router.navigate(['/home']);
@@ -44,7 +45,6 @@ export class LoginPage {
         this.message = 'No user';
         this.router.navigate(['/login']);
       }
-
     } catch (err) {
       alert(err);
     }
@@ -61,7 +61,6 @@ export class LoginPage {
       console.log('Got auth info', authInfo);
       console.log('Got user, going home');
       this.router.navigate(['/home']);
-
     } catch (err) {
       alert(err);
     }
@@ -91,7 +90,7 @@ export class LoginPage {
       const user = await IntuneMAM.enrolledAccount();
       console.log('user', user);
 
-      if (user.upn) {
+      if (user.accountId) {
         console.log('Got user, going home');
         this.router.navigate(['/home']);
       } else {
@@ -99,7 +98,6 @@ export class LoginPage {
 
         this.router.navigate(['/login']);
       }
-
     } catch (err) {
       alert(err);
     }
@@ -109,5 +107,4 @@ export class LoginPage {
   async showConsole() {
     await IntuneMAM.displayDiagnosticConsole();
   }
-
 }

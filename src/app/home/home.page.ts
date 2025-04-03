@@ -2,8 +2,12 @@ import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
-  IntuneMAM, IntuneMAMAppConfig, IntuneMAMGroupName,
-  IntuneMAMPolicy, IntuneMAMUser, IntuneMAMVersionInfo
+  IntuneMAM,
+  IntuneMAMAppConfig,
+  IntuneMAMGroupName,
+  IntuneMAMPolicy,
+  IntuneMAMUser,
+  IntuneMAMVersionInfo,
 } from '@ionic-enterprise/intune';
 import { BehaviorSubject } from 'rxjs';
 
@@ -11,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
+  standalone: false,
 })
 export class HomePage implements OnInit {
   tokenInfo: any = null;
@@ -21,12 +26,12 @@ export class HomePage implements OnInit {
   policy: IntuneMAMPolicy | null = null;
   user: IntuneMAMUser;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
-    this.user$.subscribe(async user => {
+    this.user$.subscribe(async (user) => {
       console.log('User changed', user);
-      if (user?.upn) {
+      if (user?.accountId) {
         this.appConfig = await IntuneMAM.appConfig(user);
         this.groupName = await IntuneMAM.groupName(user);
         this.policy = await IntuneMAM.getPolicy(user);
@@ -56,18 +61,16 @@ export class HomePage implements OnInit {
   }
 
   async getToken() {
-    if (this.user$.value?.upn) {
+    if (this.user$.value?.accountId) {
       try {
         const tokenInfo = await IntuneMAM.acquireTokenSilent({
           scopes: ['https://graph.microsoft.com/.default'],
-          upn: this.user$.value.upn,
+          accountId: this.user$.value.accountId,
         });
         this.tokenInfo = tokenInfo;
         console.log('Got token info', tokenInfo);
       } catch {
-        console.error(
-          'Unable to silently acquire token, getting interactive'
-        );
+        console.error('Unable to silently acquire token, getting interactive');
         const tokenInfo = await IntuneMAM.acquireToken({
           scopes: ['https://graph.microsoft.com/.default'],
         });
@@ -78,9 +81,8 @@ export class HomePage implements OnInit {
 
   async unEnroll() {
     if (this.user$.value) {
-      try
-      {
-      await IntuneMAM.deRegisterAndUnenrollAccount(this.user$.value);
+      try {
+        await IntuneMAM.deRegisterAndUnenrollAccount(this.user$.value);
       } catch (err) {
         alert(err);
       }
@@ -91,14 +93,14 @@ export class HomePage implements OnInit {
   }
 
   getTokenInfoJson() {
-    return JSON.stringify((this.tokenInfo || {}), null, 2);
+    return JSON.stringify(this.tokenInfo || {}, null, 2);
   }
 
   getPolicyJson() {
-    return JSON.stringify((this.policy || {}), null, 2);
+    return JSON.stringify(this.policy || {}, null, 2);
   }
 
   getAppConfigJson() {
-    return JSON.stringify((this.appConfig || {}), null, 2);
+    return JSON.stringify(this.appConfig || {}, null, 2);
   }
 }
